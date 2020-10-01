@@ -28,17 +28,30 @@ E' il file corrispondente al core del Software.  E' possibile eseguirlo con un d
 Apre la finestra principale del programma (**MainWindow**)
 
 ### Ephemerides.py
-E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando indipendentemente da SunFinder.py. Anch'esso si esegue da Windows Explorer o da terminale. 
+E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando il button "Show Ephemerides" della MainWindow. E' possibile anche eseguirlo indipendentemente da SunFinder.py,  da Windows Explorer o da terminale. 
 
 ### GUI
 E' la cartella in cui sono presenti i file in cui sono definite le interfacce grafiche delle varie finestre. Questi file hanno un estensione .ui e sono creati e modificati con Qt Designer. 
+
+### Images
+
 
 ### Libraries
 E' la cartella in cui sono presenti i codici funzionali allo sviluppo di SunFinder. Essi non possono essere eseguiti indipendentemente da SunFinder.py. Di seguito un breve dettaglio, in ordine alfabetico: 
 
 1. AddData.py
 
-E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Sono presenti i codici di due finestre
+E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Permette di aggiungere altri dati in acquisizione. Sono presenti i codici eseguiti nelle finestre " " (class  ) e " " (class  ). La prima permette di inserire i dettagli della nuova acquisione, mentre la seconda permette di visualizzare il valore dei nuovi dati inseriti. Per maggiore dettaglio si legga il paragrafo: "Aggiunta Dati"
+
+2. Experiment.py
+
+3. globals.py
+
+4. Save.py
+
+5. settings.py
+
+6. Windows.py
 
 ## Gestione degli errori
 
@@ -50,7 +63,7 @@ E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" 
 
 ## Acquisizione dati puntatore e pireliometro
 
-## Aggiunta dati acquisiti
+## Aggiunta dati 
 
 ## Salvataggio dati
 
