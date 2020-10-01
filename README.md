@@ -25,10 +25,21 @@ Per lo sviluppo dell'interfaccia grafica è stato utilizzato il sofwtare **QT De
 ## Struttura
 ### SunFinder.py
 E' il file corrispondente al core del Software.  E' possibile eseguirlo con un doppio click dal Windows Explorer, assicurandosi che all'estensione .py sia associato Python come esecutore. In alternativa è possibile lanciarlo attraverso il comando _"python SunFinder.py"_ eseguito da terminale, a patto che ci si trovi nella stessa cartella in cui è presente il file. Aprendo il file con un editor di testo, è possibile vedere e modificare il codice sorgente. Si consiglia per questo scopo l'utilizzo di un IDE, come PyCharm.
+Apre la finestra principale del programma (**MainWindow**)
 
 ### Ephemerides.py
-E' il file corrispondente al software per il calcolo delle efemeridi. Può essere eseguito indipendentemente da SunFinder.py. Anch'esso si esegue da Windows Explorer o da terminale. 
+E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando indipendentemente da SunFinder.py. Anch'esso si esegue da Windows Explorer o da terminale. 
 
 ### GUI
+E' la cartella in cui sono presenti i file in cui sono definite le interfacce grafiche delle varie finestre. Questi file hanno un estensione .ui e sono creati e modificati con Qt Designer. 
 
+### Libraries
+E' la cartella in cui sono presenti i codici funzionali allo sviluppo di SunFinder. Essi non possono essere eseguiti indipendentemente da SunFinder.py. Di seguito un breve dettaglio, in ordine alfabetico: 
 
+1. AddData.py
+
+E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Sono presenti i codici di due finestre
+
+## Gestione degli errori
+
+## Logica di inseguimento
