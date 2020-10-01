@@ -61,7 +61,7 @@ E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" 
 
 ## Azionamento dei motori
 
-## Acquisizione dati puntatore e pireliometro
+## Acquisizione dati 
 
 ## Aggiunta dati 
 
