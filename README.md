@@ -20,7 +20,7 @@ Per l'installazione delle librerie si consiglia l'utilizzo di _"pip install <nom
  
 Si consiglia per lo sviluppo l'utilizzo dell'IDE **PYCHARM** (https://www.jetbrains.com/pycharm/). 
 
-Per lo sviluppo dell'interfaccia grafica è stato utilizzato il sofwtare **QT Designer**. Per installarlo eseguire il comando _"pip install pyqt5-tools"_ da terminale. La sua posizione nel sistema è riferita alla cartella _" <Python_Directory>\Lib\site-packages\pyqt5_tools\Qt\bin\ "_. Per ritrovare la posizione della propria Python Directory si può risalire a partire dal collegamento presente nel Menu Start. E' consigliato creare un collegamento sul Desktop per QtDesigner.
+Per lo sviluppo dell'interfaccia grafica è stato utilizzato il sofwtare **QT Designer**. Per installarlo eseguire il comando _"pip install pyqt5-tools"_ da terminale. La sua posizione nel sistema è la seguente _" <Python_Directory>\Lib\site-packages\pyqt5_tools\Qt\bin\designer.exe "_. Per ritrovare la posizione della propria Python Directory si può risalire a partire dal collegamento presente nel Menu Start. E' consigliato creare un collegamento sul Desktop per QtDesigner.
 
 ## Struttura
 ### SunFinder.py
