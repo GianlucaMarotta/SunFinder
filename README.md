@@ -43,3 +43,17 @@ E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" 
 ## Gestione degli errori
 
 ## Logica di inseguimento
+
+## Updating Time
+
+## Azionamento dei motori
+
+## Acquisizione dati puntatore e pireliometro
+
+## Aggiunta dati acquisiti
+
+## Salvataggio dati
+
+## Grafico dei dati 
+
+## Calcolo delle efemeridi
