@@ -27,8 +27,12 @@ Per lo sviluppo dell'interfaccia grafica è stato utilizzato il sofwtare **QT De
 E' il file corrispondente al core del Software.  E' possibile eseguirlo con un doppio click dal Windows Explorer, assicurandosi che all'estensione .py sia associato Python come esecutore. In alternativa è possibile lanciarlo attraverso il comando _"python SunFinder.py"_ eseguito da terminale, a patto che ci si trovi nella stessa cartella in cui è presente il file. Aprendo il file con un editor di testo, è possibile vedere e modificare il codice sorgente. Si consiglia per questo scopo l'utilizzo di un IDE, come PyCharm.
 Apre la finestra principale del programma (**MainWindow**)
 
+![MainWindow](/Screenshots/MainWindow.JPG)
+
 ### Ephemerides.py
-E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando il button "Show Ephemerides" della MainWindow. E' possibile anche eseguirlo indipendentemente da SunFinder.py,  da Windows Explorer o da terminale. 
+E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando il button "Show Ephemerides" della MainWindow. E' possibile anche eseguirlo indipendentemente da SunFinder.py,  da Windows Explorer o da terminale.
+
+![Ephemerides](/Screenshots/Ephemerides.JPG)
 
 ### GUI
 E' la cartella in cui sono presenti i file in cui sono definite le interfacce grafiche delle varie finestre. Questi file hanno un estensione .ui e sono creati e modificati con Qt Designer. 
@@ -43,17 +47,21 @@ E' la cartella in cui sono presenti i codici funzionali allo sviluppo di SunFind
 
 E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Permette di aggiungere altri dati in acquisizione. Sono presenti i codici eseguiti nelle finestre " " (class  ) e " " (class  ). La prima permette di inserire i dettagli della nuova acquisione, mentre la seconda permette di visualizzare il valore dei nuovi dati inseriti. Per maggiore dettaglio si legga il paragrafo: "Aggiunta Dati"
 
+![AddData](/Screenshots/AddDataWindow.JPG)  ![NewData](/Screenshots/newDataWindow.JPG) 
+
 2. Experiment.py
 
 3. globals.py
 
 4. Save.py
 
+![SaveData](/Screenshots/SaveWindow.JPG) 
+
 5. settings.py
 
-6. Windows.py
 
 ## Gestione degli errori
+
 ![Errore su NidaqMX](/Screenshots/NI-DAQ_error.JPG)
 
 Se mancano le librerie il programma, con doppio click il programma non viene esguito e la finestra del prompt si chiude subito dopo l'apertura. Per un miglior controllo degli errori, lanciare il software da terminale o attraverso l'uso di un IDE.
@@ -71,6 +79,7 @@ Il dato non viene aggiunto anche se non si inserisce il nome, mentre se il canal
 Se si inserisce un canale già occupato il dato non viene aggiunto [inserire messaggio]
 
 ## Salvataggio dati
+PlotSavedData -> non ancora implementato
 
 ## Grafico dei dati 
 
