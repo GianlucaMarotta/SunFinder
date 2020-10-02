@@ -2,7 +2,7 @@
 Software per il controllo dell'inseguitore solare del Laboratorio Collettori Solari del CNR-INO. 
 
 ## Requisiti:
-Il software è scritto in liguaggio Python3. Per l'installazione di python: https://www.python.org/downloads/. Si raccomanda durante l'installazione di attivare l'opzione _"Add Python 3.x to PATH"_. Per ulteriori informazioni sull'installazione su Windows: https://docs.python.org/3/using/windows.html
+Il software è scritto in liguaggio Python3 e la sua interfaccia grafica sviluppata in QT5. Per l'installazione di python: https://www.python.org/downloads/. Si raccomanda durante l'installazione di attivare l'opzione _"Add Python 3.x to PATH"_. Per ulteriori informazioni sull'installazione su Windows: https://docs.python.org/3/using/windows.html
 
 Affinché il codice sia operativo devono essere installate le seguenti librerie:
 
@@ -85,19 +85,27 @@ Per evitare interruzioni brusche inspiegabili del programma, è stato utilizzata
 
 Se invece mancano le librerie indicate in "Requisiti" il programma non viene eseguito e nessun messaggio di errore viene mostrato. In questo caso, e in tutti i casi analoghi, si usi l'esecuzione tramite IDE o terminale. 
 
-## Puntamento del sole
+## Puntamento del sole e misura DNI
 
-link a pubblicazioni? 
+Il puntamento del sole viene effettuato da un puntatore a 4 quadranti montato sullo scheletro dell'inseguitore.  
+La precisione dell'inseguimento è legata alla precisione dell'allineamento con cui l'asse ottico del puntatore è allineato con la normale al piano dell'inseguitore
+Per approfondimento:  (https://doi.org/10.1063/1.5117585  e https://doi.org/10.18086/swc.2019.02.01).
 
-## Acquisizione dati 
 
-## Updating Time
+Il puntatore invia alla scheda di acquisizione della NI i 4 voltaggi (*V1*, *V2*, *V3* e *V4*) proporzionali alla radiazione che incide sui quattro quadranti. A partire da questa crea le variabili posizioni *Position Azimuth* e *Position Elevation*
+
+nota: nonostante l'utilizzo dei termini "Azimuth" ed "Elevation", si consideri che essendo un inseguitore di tipo "equatoriale", 
+
+## Acquisizione dati e Updating Time
 
 ## Azionamento dei motori
+
 Si noti che se si muove l'inseguitore verso Est, la posizione del sole si muoverà verso a Ovest rispetto il centro dei quattro qaudranti e viceversa. 
 Se si muove il frame verso Up, il sole andrà verso Down. 
 
 ## Logica di inseguimento
+
+![MainWindow](/Screenshots/inseguimento_zone.png)
 
 ## Aggiunta dati 
 
