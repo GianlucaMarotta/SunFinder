@@ -114,7 +114,7 @@ Se si muove il frame verso Up, il sole andrà verso Down e viceversa.
 
 ## Logica di inseguimento
 
-![comandiInseguimento](/Screenshots/finding.png)
+![comandiInseguimento](/Screenshots/Finding.png)
 
 ![zoneInseguimento](/Screenshots/inseguimento_zone.png)
 
