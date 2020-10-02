@@ -1,8 +1,6 @@
 import time
 import nidaqmx
 from Libraries import globals, settings
-from PyQt5.QtWidgets import QMessageBox
-
 
 class Hardware:
 

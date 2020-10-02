@@ -17,6 +17,9 @@ from PyQt5 import QtWidgets, QtCore, uic, QtGui
 import pyqtgraph as pg
 import numpy as np
 import time
+import datetime
+import pandas as pd
+from pvlib import solarposition
 # nel secondo blocco vengono importate le librerie invece create appositamente per questo programma. 
 # Sono file ".py" e sono presenti nella cartella "Libraries".
 from Libraries.Experiment import Hardware, Data
@@ -143,7 +146,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # crea l'oggetto definito in SaveFile definito nel file Save.py
         self.sv = SaveFile()
-
 
         # # -------------------------- # #
         # # Azioni legate ai "Buttons" # #
@@ -619,10 +621,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def thresh_find_el(self):
 
+        now = datetime.datetime.now()
+        date = str(now.year) + '-' + str(now.month) + '-'+ str(now.day)
+
+        times = pd.date_range(start=date, end=date, freq=None, tz=settings.timeZone)
+
+        solpos = solarposition.sun_rise_set_transit_spa(times, settings.lat, settings.lon)
+        noon = solpos.transit.array
+
         if ((globals.dt.V1 > self.startValue) and (globals.dt.V2 > self.startValue)) and (
                 (globals.dt.V3 > self.startValue) and (globals.dt.V4 > self.startValue)):
 
-            if True: #se si è prima del mezzogiorno
+            # se si è prima del mezzogiorno
+            if datetime.datetime.now().hour < noon.hour and datetime.datetime.now().minute < noon.minute:
 
                 if globals.dt.P_el >= self.el_threshold:
                     self.set_direction_el(dir='Down')
@@ -634,7 +645,6 @@ class MainWindow(QtWidgets.QMainWindow):
                         self.move_el()
                     else:
                         self.not_move_el()
-                        print('fine')
                         self.in_finding_from_up = False
 
                 else:
@@ -649,6 +659,33 @@ class MainWindow(QtWidgets.QMainWindow):
                     else:
                         self.not_move_el()
                         self.in_finding_from_down = False
+            # dopo mezzogiorno
+            else:
+
+                if globals.dt.P_el <= -self.el_threshold:
+                    self.set_direction_el(dir='Up')
+                    self.slider_el_direction.setValue(1)
+                    self.in_finding_from_down = True
+
+                if self.in_finding_from_down:
+                    if globals.dt.P_el < self.el_threshold:
+                        self.move_el()
+                    else:
+                        self.not_move_el()
+                        self.in_finding_from_down = False
+
+                else:
+                    if globals.dt.P_el >= self.el_threshold + self.buffer_zone:
+                        self.set_direction_el(dir='Down')
+                        self.in_finding_from_up = True
+                        self.slider_el_direction.setValue(0)
+
+                if self.in_finding_from_up:
+                    if (globals.dt.P_el > self.el_threshold):
+                        self.move_el()
+                    else:
+                        self.not_move_el()
+                        self.in_finding_from_up = False
         else:
             self.not_move_el()
 

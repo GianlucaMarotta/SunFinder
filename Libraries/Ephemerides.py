@@ -9,6 +9,7 @@ from pvlib import solarposition
 import sys
 import os
 from PyQt5 import QtWidgets, uic, QtCore
+from Libraries import globals
 
 
 class EphemeridesWindow(QtWidgets.QMainWindow):
@@ -52,11 +53,6 @@ class EphemeridesWindow(QtWidgets.QMainWindow):
         self.dateEdit.setDate(self.date)
         self.timeEdit.setTime(self.time)
 
-        self.lat = self.spinBox_latitude.value()
-        self.lon = self.spinBox_longitude.value()
-
-        self.solpos = solarposition.get_solarposition(self.now, self.lat, self.lon)
-
         self.lcdNumber_azimuth.display(self.solpos.azimuth.array[0])
         self.lcdNumber_elevation.display(self.solpos.elevation.array[0])
 
@@ -81,6 +77,9 @@ class EphemeridesWindow(QtWidgets.QMainWindow):
 
         date = str(self.dateEdit.date().year()) + '-' + str(self.dateEdit.date().month()) + '-' + str(self.dateEdit.date().day())
         times = pd.date_range(start=date, end=date, freq= None, tz=self.tz)
+
+        self.lat = self.spinBox_latitude.value()
+        self.lon = self.spinBox_longitude.value()
 
         solpos = solarposition.sun_rise_set_transit_spa(times, self.lat, self.lon)
 

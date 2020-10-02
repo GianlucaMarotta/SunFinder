@@ -1,6 +1,7 @@
 # GENERAL SETTINGS
 
-time_on = 0.01
+time_on = 0.01 #s - E' la durata del minimo impulso dato ai motori.
+
 # numero di punti mostrati nel grafico
 RANGE = 100
 
@@ -16,6 +17,7 @@ default_startValue = 0.01
 device = 'dev1'
 
 # nome delle porte corrispondenti ai comandi dei motori (Check on Labview)
+
 dports = {
 'port_en_az' : 'port1/line0',
 'port_dir_az' : 'port1/line1',
@@ -30,3 +32,11 @@ port_V3 = 'ai3'
 port_V4 = 'ai4'
 port_DNI = 'ai5'
 
+# coordinate geografiche. Utili per l'inseguimento sull'elevation. Di degault quelle della terrazza dell'inseguitore
+
+lat = 43.74890
+lon = 11.25182
+
+#time zone
+
+timeZone = 'Europe/Vatican'
