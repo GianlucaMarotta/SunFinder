@@ -42,26 +42,26 @@ E' la cartella in cui sono presenti le immagini utilizzate nella Interfaccia gra
 ### Libraries
 E' la cartella in cui sono presenti i codici funzionali allo sviluppo di SunFinder. Essi non possono essere eseguiti indipendentemente da SunFinder.py. Di seguito un breve dettaglio, in ordine alfabetico: 
 
-1. AddData.py
+1. **AddData.py**
 
 E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Permette di aggiungere altri dati in acquisizione. Sono presenti i codici eseguiti nelle finestre " " (class  ) e " " (class  ). La prima permette di inserire i dettagli della nuova acquisione, mentre la seconda permette di visualizzare il valore dei nuovi dati inseriti. Per maggiore dettaglio si legga il paragrafo: "Aggiunta Dati"
 
-2. Experiment.py
+2. **Experiment.py**
 
 E' presente il codice che permette di guidare l'esperimento, in particolare:
 
 * la classe Hardware, che permette di acquisire i segnali analogici e di inviare i segnali digitali alla scheda della National Instruments
 * la classe Data, che processa i dati grezzi. 
 
-3. globals.py
+3. **globals.py**
 
 E' una libreria di variabili "globali", ovvero che devono passare da un pezzo di codice all'altro. Sono semplicemente definite e inizializzate a "None" in questo file. La vera inizializzazione è demandata alle altre sezioni di codice. 
 
-4. Save.py
+4. **Save.py**
 
 E' presente il codice che permette di salvare i dati sperimentali, con la relativa finestra. Per il dettaglio si veda "Salvataggio Dati".
 
-5. settings.py
+5. **settings.py**
 
 Sono presenti le variabili che corrispondo alle impostazioni di base del sistema, inizializzate al valore richeisto. Esse sono:
 
