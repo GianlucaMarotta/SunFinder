@@ -219,7 +219,7 @@
     <property name="geometry">
      <rect>
       <x>390</x>
-      <y>510</y>
+      <y>500</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -229,7 +229,7 @@
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>480</y>
+      <y>470</y>
       <width>71</width>
       <height>20</height>
      </rect>
@@ -242,7 +242,7 @@
     <property name="geometry">
      <rect>
       <x>580</x>
-      <y>480</y>
+      <y>470</y>
       <width>91</width>
       <height>20</height>
      </rect>
@@ -255,7 +255,7 @@
     <property name="geometry">
      <rect>
       <x>590</x>
-      <y>510</y>
+      <y>500</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -376,7 +376,7 @@
    <widget class="QPushButton" name="button_saveData">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>860</x>
       <y>590</y>
       <width>111</width>
       <height>28</height>
@@ -389,7 +389,7 @@
    <widget class="QLabel" name="label_10">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>130</x>
       <y>560</y>
       <width>121</width>
       <height>20</height>
@@ -408,7 +408,7 @@
    <widget class="QLabel" name="led_az_find">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>160</x>
       <y>660</y>
       <width>21</width>
       <height>21</height>
@@ -430,7 +430,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>130</x>
       <y>620</y>
       <width>71</width>
       <height>31</height>
@@ -443,7 +443,7 @@
    <widget class="QLabel" name="label_11">
     <property name="geometry">
      <rect>
-      <x>110</x>
+      <x>140</x>
       <y>590</y>
       <width>61</width>
       <height>20</height>
@@ -456,7 +456,7 @@
    <widget class="QLabel" name="label_15">
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>230</x>
       <y>590</y>
       <width>71</width>
       <height>20</height>
@@ -469,7 +469,7 @@
    <widget class="QLabel" name="led_el_find">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>250</x>
       <y>660</y>
       <width>21</width>
       <height>21</height>
@@ -491,7 +491,7 @@
     </property>
     <property name="geometry">
      <rect>
-      <x>200</x>
+      <x>230</x>
       <y>620</y>
       <width>71</width>
       <height>31</height>
@@ -504,7 +504,7 @@
    <widget class="QLabel" name="label_16">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>510</x>
       <y>590</y>
       <width>91</width>
       <height>20</height>
@@ -517,7 +517,7 @@
    <widget class="QPushButton" name="button_showGraph">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>860</x>
       <y>550</y>
       <width>111</width>
       <height>28</height>
@@ -530,7 +530,7 @@
    <widget class="QPushButton" name="button_addData">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>860</x>
       <y>460</y>
       <width>111</width>
       <height>28</height>
@@ -569,7 +569,7 @@
    <widget class="QLabel" name="label_19">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>370</x>
       <y>640</y>
       <width>81</width>
       <height>20</height>
@@ -875,7 +875,7 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>520</y>
+      <y>510</y>
       <width>21</width>
       <height>23</height>
      </rect>
@@ -888,7 +888,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>520</y>
+      <y>510</y>
       <width>21</width>
       <height>23</height>
      </rect>
@@ -901,7 +901,7 @@
     <property name="geometry">
      <rect>
       <x>520</x>
-      <y>500</y>
+      <y>490</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -914,7 +914,7 @@
     <property name="geometry">
      <rect>
       <x>490</x>
-      <y>500</y>
+      <y>490</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -927,7 +927,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>500</y>
+      <y>490</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -940,7 +940,7 @@
     <property name="geometry">
      <rect>
       <x>690</x>
-      <y>520</y>
+      <y>510</y>
       <width>21</width>
       <height>23</height>
      </rect>
@@ -953,7 +953,7 @@
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>500</y>
+      <y>490</y>
       <width>31</width>
       <height>20</height>
      </rect>
@@ -966,7 +966,7 @@
     <property name="geometry">
      <rect>
       <x>720</x>
-      <y>520</y>
+      <y>510</y>
       <width>21</width>
       <height>23</height>
      </rect>
@@ -1159,7 +1159,7 @@
    <widget class="QDoubleSpinBox" name="spinBox_az_threshold">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>510</x>
       <y>620</y>
       <width>81</width>
       <height>22</height>
@@ -1178,7 +1178,7 @@
    <widget class="QDoubleSpinBox" name="spinBox_startValue">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>370</x>
       <y>670</y>
       <width>81</width>
       <height>22</height>
@@ -1197,7 +1197,7 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>330</x>
+      <x>370</x>
       <y>600</y>
       <width>81</width>
       <height>22</height>
@@ -1210,11 +1210,6 @@
     </item>
     <item>
      <property name="text">
-      <string>Calibrated</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
       <string>Ephemerides</string>
      </property>
     </item>
@@ -1222,7 +1217,7 @@
    <widget class="QDoubleSpinBox" name="spinBox_el_threshold">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>620</x>
       <y>620</y>
       <width>81</width>
       <height>22</height>
@@ -1241,7 +1236,7 @@
    <widget class="QLabel" name="label_24">
     <property name="geometry">
      <rect>
-      <x>560</x>
+      <x>620</x>
       <y>590</y>
       <width>101</width>
       <height>20</height>
@@ -1254,7 +1249,7 @@
    <widget class="QDoubleSpinBox" name="spinBox_buffer_zone">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>560</x>
       <y>670</y>
       <width>81</width>
       <height>22</height>
@@ -1273,7 +1268,7 @@
    <widget class="QLabel" name="label_44">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>560</x>
       <y>650</y>
       <width>91</width>
       <height>20</height>
@@ -1286,7 +1281,7 @@
    <widget class="QPushButton" name="button_showEphemerides">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>860</x>
       <y>670</y>
       <width>111</width>
       <height>28</height>
@@ -1299,7 +1294,7 @@
    <widget class="QLabel" name="led_saving">
     <property name="geometry">
      <rect>
-      <x>1010</x>
+      <x>1000</x>
       <y>590</y>
       <width>21</width>
       <height>21</height>
@@ -1318,7 +1313,7 @@
    <widget class="QLabel" name="label_saving">
     <property name="geometry">
      <rect>
-      <x>1000</x>
+      <x>990</x>
       <y>570</y>
       <width>51</width>
       <height>16</height>
@@ -1468,7 +1463,7 @@
    <widget class="QCheckBox" name="checkBox_plot_saved_data">
     <property name="geometry">
      <rect>
-      <x>870</x>
+      <x>860</x>
       <y>630</y>
       <width>101</width>
       <height>17</height>

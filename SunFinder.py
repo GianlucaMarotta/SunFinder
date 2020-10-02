@@ -320,6 +320,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
                 # crea la finestra e la mostra
                 globals.nDWdw = NewDataWindow()
+                globals.nDWdw.setWindowTitle('Temporary Data')
                 globals.nDWdw.show()
 
             if globals.is_moving_az:
