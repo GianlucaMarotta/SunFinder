@@ -91,12 +91,14 @@ Il puntamento del sole viene effettuato da un puntatore a 4 quadranti montato su
 La precisione dell'inseguimento è legata alla precisione dell'allineamento con cui l'asse ottico del puntatore è allineato con la normale al piano dell'inseguitore
 Per approfondimento:  (https://doi.org/10.1063/1.5117585  e https://doi.org/10.18086/swc.2019.02.01).
 
+![pointer](/Screenshots/pointer.JPG)
 
-Il puntatore invia alla scheda di acquisizione della NI i 4 voltaggi (*V1*, *V2*, *V3* e *V4*) proporzionali alla radiazione che incide sui quattro quadranti. A partire da questa crea le variabili posizioni *Position Azimuth* e *Position Elevation*
-
-nota: nonostante l'utilizzo dei termini "Azimuth" ed "Elevation", si consideri che essendo un inseguitore di tipo "equatoriale", 
+Il puntatore invia alla scheda di acquisizione della NI i 4 voltaggi (*V1*, *V2*, *V3* e *V4*) proporzionali alla radiazione che incide sui quattro quadranti. A partire da questa crea le variabili posizioni *Position Azimuth* e *Position Elevation*. Il grafico centrale mostra in tempo reale il valore di queste due ultime variabili. 
+Il grafico centrale indica la posizione del sole rispetto alla normale del piano di inseguimento. 
 
 ## Acquisizione dati e Updating Time
+
+I dati vengono acquisiti ad ogni valore 
 
 ## Azionamento dei motori
 
@@ -105,9 +107,10 @@ Se si muove il frame verso Up, il sole andrà verso Down.
 
 ## Logica di inseguimento
 
-![MainWindow](/Screenshots/inseguimento_zone.png)
+![zoneInseguimento](/Screenshots/inseguimento_zone.png)
 
 ## Aggiunta dati 
+Premendo il button "Add Data" ...
 
 ![AddData](/Screenshots/AddDataWindow.JPG)              ![NewData](/Screenshots/newDataWindow.JPG) 
 
