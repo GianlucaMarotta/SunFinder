@@ -32,7 +32,7 @@ Apre la finestra principale del programma (**MainWindow**)
 ### Ephemerides.py
 E' il file corrispondente al software per il calcolo delle efemeridi. Viene eseguito cliccando il button "Show Ephemerides" della MainWindow. E' possibile anche eseguirlo indipendentemente da SunFinder.py,  da Windows Explorer o da terminale.
 
-![Ephemerides](/Screenshots/Ephemerides.JPG)
+![Ephemerides](/Screenshots/Emphemerides.JPG)
 
 ### GUI
 E' la cartella in cui sono presenti i file in cui sono definite le interfacce grafiche delle varie finestre. Questi file hanno un estensione .ui e sono creati e modificati con Qt Designer. 
@@ -47,7 +47,7 @@ E' la cartella in cui sono presenti i codici funzionali allo sviluppo di SunFind
 
 E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" della finestra principale. Permette di aggiungere altri dati in acquisizione. Sono presenti i codici eseguiti nelle finestre " " (class  ) e " " (class  ). La prima permette di inserire i dettagli della nuova acquisione, mentre la seconda permette di visualizzare il valore dei nuovi dati inseriti. Per maggiore dettaglio si legga il paragrafo: "Aggiunta Dati"
 
-![AddData](/Screenshots/AddDataWindow.JPG)  ![NewData](/Screenshots/newDataWindow.JPG) 
+   ![AddData](/Screenshots/AddDataWindow.JPG)              ![NewData](/Screenshots/newDataWindow.JPG) 
 
 2. Experiment.py
 
