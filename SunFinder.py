@@ -1,6 +1,6 @@
 # # ----------------------------------------------------------- # #
 # #           CNR - INO  Solar Collector Lab                    # #
-# #        "Sun Finder"  - versione del 11/09/20                # #
+# #        "Sun Finder"  - versione del 01/10/20                # #
 # # developed by Gianluca Marotta - gianlucamarotta18@gmail.com # #
 # # ----------------------------------------------------------- # #
 
@@ -20,10 +20,10 @@ import time
 # nel secondo blocco vengono importate le librerie invece create appositamente per questo programma. 
 # Sono file ".py" e sono presenti nella cartella "Libraries".
 from Libraries.Experiment import Hardware, Data
-from provaSPA import EphemeridesWindow
-from Libraries.Plot import PlotWindow
+from Libraries.Ephemerides import EphemeridesWindow
+from Libraries.Windows import PlotWindow
 from Libraries.Save import SaveFile, SaveWindow
-from Libraries.addData import AddWindow, NewDataWindow
+from Libraries.AddData import AddWindow, NewDataWindow
 from Libraries import globals, settings
 
 
@@ -58,17 +58,25 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Le seguenti sono variabili definite in "globals.py".
         # globals serve ad avere uno spazio di variabili esterno a MainWindow che può comunicare con gli altri oggetti.
+        # per il loro significato si faccia riferimento al file "globals.py" in Libraries
+
+        # Le "flags" vengono inizializzate False
         globals.is_moving_az = False
         globals.is_moving_el = False
         globals.is_finding_az = False
         globals.is_finding_el = False
-        globals.var_is_showing_graph = False
+        globals.is_showing_graph = False
         globals.V1_is_plotting = False
         globals.is_writing_data = False
+
+        # !!!!!cos'é?
         globals.az_mot = 0
         globals.el_mot = 0
+
+        # !!!!!cos'é?
         globals.time_0 = 0
 
+        # liste iniziali relative alle variabili
         globals.list_of_id = ['V1', 'V2', 'V3', 'V4', 'DNI']
         globals.list_of_labels = ['V1', 'V2', 'V3', 'V4', 'DNI']
         globals.list_of_units = ['V', 'V', 'V', 'V', 'W/m^2']
@@ -82,6 +90,13 @@ class MainWindow(QtWidgets.QMainWindow):
                          'Position Elevation (a.u.)', 'Position Azimut (a.u.)', 'Azimut Motion (a.u.)',
                          'Elevation Motion (a.u.)']
 
+        # E' la finestra che viene mostrata se ci sono errori nell'esecuzione
+
+        globals.errorWdw = QtWidgets.QMessageBox()
+        globals.errorWdw.setWindowTitle('Error!')
+        globals.errorWdw.setText('There is an error!! - Check Terminal for specification')
+        globals.errorWdw.setIcon(QtWidgets.QMessageBox.Critical)
+
         # queste variabili invece sono create e inizializzate nello spazio delle variabili dell'oggetto "MainWindow".
         # "self" definisce uno spazio per gli oggetti interni all'oggetto in cui vengono definiti. 
         # Al di fuori di MainWindow queste variabili non esistono
@@ -89,6 +104,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.in_finding_from_west = False
         self.in_finding_from_up = False
         self.in_finding_from_down = False
+
+        self.az_single_pulse = False
+        self.el_single_pulse = False
 
         # alcune variabili sono inizializzate con i valori di default definiti nel file "settings.py"
         self.az_threshold = settings.default_az_threshold
@@ -100,7 +118,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.velocity_azimuth = 1
         self.velocity_elevation = 1
 
-        # la variabile old_number serve per il controllo nel caso vengano aggiunte nuoce variabili
+        # la variabile old_number serve per il controllo nel caso vengano aggiunte nuove variabili
         self.old_number_of_data = len(globals.list_of_id)
 
         # usa il metodo "setValue" degli oggetti "SpinBox" definiti nel file ".ui" che imposta il valore della SpinBox
@@ -116,15 +134,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.spinBox_az_velocity.setValue(self.velocity_azimuth)
         self.spinBox_el_velocity.setValue(self.velocity_elevation)
 
-        self.wave = True
 
         # crea l'oggetto "hw" definito nel file Experiment.py come Hardware
         self.hw = Hardware()
-        # manda a tutti i motori il segnale "off"
-        [self.hw.send_signal_off(settings.dports[i]) for i in settings.dports] # Turn off motors
+        # manda a tutti i motori il segnale "off".
+        # In contemporanea controlla che non ci siano errori
+        #[self.hw.send_signal_off(settings.dports[i]) for i in settings.dports] # Turn off motors
 
         # crea l'oggetto definito in SaveFile definito nel file Save.py
         self.sv = SaveFile()
+
 
         # # -------------------------- # #
         # # Azioni legate ai "Buttons" # #
@@ -149,9 +168,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.slider_az_direction.valueChanged.connect(lambda: self.set_direction_az(dir=None)) # nota: l'utilizzo di lambda che definisce un metodo in una riga
         self.slider_el_direction.valueChanged.connect(lambda: self.set_direction_el(dir=None))
 
-        # # ----------------------------- # #
+        # # ----------------------- # #
         # # Azioni legate ai "dial" # #
-        # # ----------------------------- # #
+        # # ----------------------- # #
         # sono le manopole della velocità
 
         self.dial_az_velocity.valueChanged.connect(self.set_velocity_azimuth_dial)
@@ -194,6 +213,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.checkBox_P_az_save.stateChanged.connect(self.P_az_save)
         self.checkBox_az_enable_save.stateChanged.connect(self.az_enable_save)
         self.checkBox_el_enable_save.stateChanged.connect(self.el_enable_save)
+
+        # Single Pulse
+        self.checkBox_az_single_pulse.stateChanged.connect(self.change_state_az_single_pulse)
+        self.checkBox_el_single_pulse.stateChanged.connect(self.change_state_el_single_pulse)
 
         # # -------------------------------- # #
         # # Definizione del "Position Graph" # #
@@ -254,37 +277,39 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def update(self):
 
-        # acquisice i dati utilizzato il metodo "acquisition" dell'oggetto Hardware definito in Experiment.py
-        self.hw.acquisition()
+        try:
+            # acquisice i dati utilizzato il metodo "acquisition" dell'oggetto Hardware definito in Experiment.py
+            self.hw.acquisition()
 
-        # crea un oggetto "Data" definito in "Experiment.py". Nell'init dell'oggetto vengono spacchettati i dati aqcuisiti
-        globals.dt = Data()
+            # crea un oggetto "Data" definito in "Experiment.py". Nell'init dell'oggetto vengono spacchettati i dati acquisiti
+            globals.dt = Data()
 
-        # aggiorna i valori dei display numerici
-        self.lcdNumber_P_az.display(globals.dt.P_az)
-        self.lcdNumber_P_el.display(globals.dt.P_el)
-        self.lcdNumber_V1.display(globals.dt.V1)
-        self.lcdNumber_V2.display(globals.dt.V2)
-        self.lcdNumber_V3.display(globals.dt.V3)
-        self.lcdNumber_V4.display(globals.dt.V4)
-        self.lcdNumber_DNI.display(globals.dt.DNI)
-        self.lcdNumber_time.display(globals.updating_time)
+            # aggiorna i valori dei display numerici
+            self.lcdNumber_P_az.display(globals.dt.P_az)
+            self.lcdNumber_P_el.display(globals.dt.P_el)
+            self.lcdNumber_V1.display(globals.dt.V1)
+            self.lcdNumber_V2.display(globals.dt.V2)
+            self.lcdNumber_V3.display(globals.dt.V3)
+            self.lcdNumber_V4.display(globals.dt.V4)
+            self.lcdNumber_DNI.display(globals.dt.DNI)
+            self.lcdNumber_time.display(globals.updating_time)
 
-        # Aggiorna i dati del "Position Graph"
-        self.x = [globals.dt.P_az, np.nan]
-        self.y = [globals.dt.P_el, np.nan]
-        self.plot.setData(self.x, self.y)  # Update the data.
+            # Aggiorna i dati del "Position Graph"
+            self.x = [globals.dt.P_az, np.nan]
+            self.y = [globals.dt.P_el, np.nan]
+            self.plot.setData(self.x, self.y)  # Update the data.
 
-        # Salva i dati, quando avviato il salvataggio.
-        # il valore di verità della variabile "globals.is_writing_data" e definito dal click del "button_save_data"
-        if globals.is_writing_data:
-            self.sv.save_data()
-            self.button_saveData.setText('Stop Saving Data')
-            self.led_saving.setPixmap(QtGui.QPixmap("Images/green_light.png"))
-            self.label_saving.setText('is saving!')
+            # Salva i dati, quando avviato il salvataggio.
+            # il valore di verità della variabile "globals.is_writing_data" e definito dal click del "button_save_data"
+            if globals.is_writing_data:
+                self.sv.save_data()
+                self.button_saveData.setText('Stop Saving Data')
+                self.led_saving.setPixmap(QtGui.QPixmap("Images/green_light.png"))
+                self.label_saving.setText('is saving!')
 
-        # Apre la nuova finestra quando vengono aggiunte nuove variabili
-        if (len(globals.list_of_id) != self.old_number_of_data) and hasattr(globals.dt, globals.list_of_id[-1]) :
+            # Apre la nuova finestra quando vengono aggiunte nuove variabili. controlla la variabile old_number of datas
+            if (len(globals.list_of_id) != self.old_number_of_data) and hasattr(globals.dt, globals.list_of_id[-1]) :
+
                 # se esiste già una finestra la elimina per poterne creare una nuova
                 if globals.nDWdw:
                     try:
@@ -292,24 +317,34 @@ class MainWindow(QtWidgets.QMainWindow):
                         globals.nDWdw = None
                     except:
                         globals.nDWdw = None
+
                 # crea la finestra e la mostra
                 globals.nDWdw = NewDataWindow()
                 globals.nDWdw.show()
 
-        # se è attivo l'inseguimento invoca i metodi corrispondenti
+            if globals.is_moving_az:
+                self.move_az()
+            if globals.is_moving_el:
+                self.move_el()
 
-        if globals.is_moving_az:
-            self.move_az()
-        if globals.is_moving_el:
-            self.move_el()
+            if globals.is_finding_az:
+                self.find_az()
+            if globals.is_finding_el:
+                self.find_el()
 
-        if globals.is_finding_az:
-            self.find_az()
-        if globals.is_finding_el:
-            self.find_el()
+            # aggiorna il numero di dati per l'iterazione successiva del loop
+            self.old_number_of_data = len(globals.list_of_id)
 
-        # aggiorna il numero di dati per l'iterazione successiva del loop
-        self.old_number_of_data = len(globals.list_of_id)
+
+        except Exception:
+            # se ci sono errori fa vedere la finestra di errore e stampa su terminale i dettagli
+            globals.errorWdw.show()
+
+            print('\n---- Error! ----\n')
+            print('\nThe original error message is displayed below.')
+            print('\n' + '-' * 30 + '\n')
+            self.timer.stop()
+            raise
 
     # # ------------- # #
     # # Click methods # #
@@ -320,23 +355,23 @@ class MainWindow(QtWidgets.QMainWindow):
     def click_az_en(self):
         # se è già in movimento ferma il motore dell'azimut, altrimenti lo accende
         # attiva i "motion methods" definiti sotto
-        if globals.is_moving_az == True:
+        if globals.is_moving_az:
             self.not_move_az()
         else:
             self.move_az()
 
     def click_el_en(self):
         # idem con il motore dell'elevation
-        if globals.is_moving_el == True:
+        if globals.is_moving_el:
             self.not_move_el()
         else:
             self.move_el()
 
     def click_showGraph(self):
         # apre una finestra in cui viene mostrato il grafico delle variabili selezionate
-        globals.var_is_showing_graph = True
         globals.var_opening_graph = True
         self.graph = PlotWindow(self)
+        self.graph.setWindowTitle('Plot Data')
         self.graph.show()
 
     def click_save_file(self):
@@ -344,6 +379,7 @@ class MainWindow(QtWidgets.QMainWindow):
         # crea e mostra l'oggetto corrispondente, definito in SaveWindow
         if not globals.is_writing_data:
             self.saveWdw = SaveWindow(self)
+            self.saveWdw.setWindowTitle('Save Data')
             self.saveWdw.show()
             self.sv = SaveFile()
 
@@ -357,6 +393,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def click_add_data(self):
         self.addWdw = AddWindow(self)
+        self.addWdw.setWindowTitle('Add Data')
         self.addWdw.show()
 
     def click_az_find(self):
@@ -383,6 +420,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
     def click_show_ephem(self):
         self.ephWdw = EphemeridesWindow(self)
+        self.ephWdw.setWindowTitle('Ephemerides Calculation')
         self.ephWdw.show()
     # # -------------------- # #
     # # Read SpinBox methods # #
@@ -468,15 +506,22 @@ class MainWindow(QtWidgets.QMainWindow):
         globals.is_moving_az = True
         globals.az_mot = 1
 
-        if self.velocity_azimuth == 1:
-            self.hw.send_signal_on(settings.dports['port_en_az'])  # Accende il motore dell'Azimut
-
-        else:
-            time_off = settings.time_on / self.velocity_azimuth - settings.time_on
+        if self.az_single_pulse:
             self.hw.send_signal_on(port=settings.dports['port_en_az'])
             time.sleep(settings.time_on)
-            self.hw.send_signal_off(port=settings.dports['port_en_az'])
-            time.sleep(time_off)
+            self.not_move_az()
+
+        else:
+
+            if self.velocity_azimuth == 1:
+                self.hw.send_signal_on(settings.dports['port_en_az'])  # Accende il motore dell'Azimut
+
+            else:
+                time_off = settings.time_on / self.velocity_azimuth - settings.time_on
+                self.hw.send_signal_on(port=settings.dports['port_en_az'])
+                time.sleep(settings.time_on)
+                self.hw.send_signal_off(port=settings.dports['port_en_az'])
+                time.sleep(time_off)
 
     def not_move_az(self):
         self.led_az_enable.setPixmap(QtGui.QPixmap("Images/red_light.png"))
@@ -486,18 +531,27 @@ class MainWindow(QtWidgets.QMainWindow):
         globals.az_mot = 0
 
     def move_el(self):
+
         self.led_el_enable.setPixmap(QtGui.QPixmap("Images/green_light.png"))
         self.button_el_enable.setText('Stop')
         globals.is_moving_el = True
         globals.el_mot = 1
-        if self.velocity_elevation == 1:
-            self.hw.send_signal_on(settings.dports['port_en_el'])  # Accende il motore dell'Elevation
-        else:
-            time_off = settings.time_on / self.velocity_elevation - settings.time_on
+
+        if self.el_single_pulse:
             self.hw.send_signal_on(port=settings.dports['port_en_el'])
             time.sleep(settings.time_on)
-            self.hw.send_signal_off(port=settings.dports['port_en_el'])
-            time.sleep(time_off)
+            self.not_move_el()
+
+        else:
+
+            if self.velocity_elevation == 1:
+                self.hw.send_signal_on(settings.dports['port_en_el'])  # Accende il motore dell'Elevation
+            else:
+                time_off = settings.time_on / self.velocity_elevation - settings.time_on
+                self.hw.send_signal_on(port=settings.dports['port_en_el'])
+                time.sleep(settings.time_on)
+                self.hw.send_signal_off(port=settings.dports['port_en_el'])
+                time.sleep(time_off)
 
     def not_move_el(self):
         self.led_el_enable.setPixmap(QtGui.QPixmap("Images/red_light.png"))
@@ -505,6 +559,7 @@ class MainWindow(QtWidgets.QMainWindow):
         globals.is_moving_el = False
         self.hw.send_signal_off(settings.dports['port_en_el'])  # Spegne il motore dell'Azimut
         globals.el_mot = 0
+
 
     # # ------------------ # #
     # #   Finding methods  # #
@@ -637,7 +692,10 @@ class MainWindow(QtWidgets.QMainWindow):
         globals.az_enable_is_saving = not globals.az_enable_is_saving
     def el_enable_save(self):
         globals.el_enable_is_saving = not globals.el_enable_is_saving
-
+    def change_state_az_single_pulse(self):
+        self.az_single_pulse = not self.az_single_pulse
+    def change_state_el_single_pulse(self):
+        self.el_single_pulse = not self.el_single_pulse
 
 # # --------- # #
 # # Execution # #
@@ -645,9 +703,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
 if __name__ == '__main__':
 
+    print('Starting application...')
     app = QtWidgets.QApplication(sys.argv)
 
     w = MainWindow()
+    w.setWindowTitle('Sun Finder Control - Solar Collector Lab - INO-CNR ')
+
     w.show()
 
     sys.exit(app.exec_())
