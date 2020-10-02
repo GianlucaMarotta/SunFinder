@@ -10,6 +10,7 @@ Affinché il codice sia operativo devono essere installate le seguenti librerie:
 * pyqtgraph
 * numpy
 * time
+* datetime
 * nidaqmx
 * pandas 
 * pvlib
@@ -68,9 +69,15 @@ Se mancano le librerie il programma, con doppio click il programma non viene esg
 
 ## Logica di inseguimento
 
+## Puntamento del sole
+
+link a pubblicazioni? 
+
 ## Updating Time
 
 ## Azionamento dei motori
+Si noti che se si muove l'inseguitore verso Est, la posizione del sole si muoverà verso a Ovest rispetto il centro dei quattro qaudranti e viceversa. 
+Se si muove il frame verso Up, il sole andrà verso Down. 
 
 ## Acquisizione dati 
 
