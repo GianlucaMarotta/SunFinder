@@ -54,6 +54,9 @@ E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" 
 6. Windows.py
 
 ## Gestione degli errori
+![Errore su NidaqMX](/Screenshots/NI-DAQ_error.JPG)
+
+Se mancano le librerie il programma, con doppio click il programma non viene esguito e la finestra del prompt si chiude subito dopo l'apertura. Per un miglior controllo degli errori, lanciare il software da terminale o attraverso l'uso di un IDE.
 
 ## Logica di inseguimento
 
@@ -64,6 +67,8 @@ E' presente il codice che viene eseguito quando si preme il pulsante "Add Data" 
 ## Acquisizione dati 
 
 ## Aggiunta dati 
+Il dato non viene aggiunto anche se non si inserisce il nome, mentre se il canale della daq non esiste, viene restituito un errore che blocca il canale. In quel caso riavviare il programma [bug da risolvere]. L'unità di misura può essere omessa, anche se questo è sconsigliato. 
+Se si inserisce un canale già occupato il dato non viene aggiunto [inserire messaggio]
 
 ## Salvataggio dati
 
