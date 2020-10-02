@@ -1,5 +1,5 @@
 # SunFinder
-Software per il controllo dell'inseguitore solare del Laboratorio Collettori Solari del CNR-INO. 
+Software per il controllo dell'inseguitore solare del Laboratorio Collettori Solari del CNR-INO (https://fox.ino.it/home/solar)
 
 ## Requisiti:
 Il software è scritto in liguaggio Python3 e la sua interfaccia grafica sviluppata in QT5. Per l'installazione di python: https://www.python.org/downloads/. Si raccomanda durante l'installazione di attivare l'opzione _"Add Python 3.x to PATH"_. Per ulteriori informazioni sull'installazione su Windows: https://docs.python.org/3/using/windows.html
@@ -98,14 +98,23 @@ Il grafico centrale indica la posizione del sole rispetto alla normale del piano
 
 ## Acquisizione dati e Updating Time
 
-I dati vengono acquisiti ad ogni valore 
+I dati vengono acquisiti ad ogni ciclo del loop presente in MainWindow
+Per il controllo dell'esecuzione tra un'acquisizione ed un'altra viene registato il tempo trascorso visualizzabile in alto a sinistra dall'indicatore Updating Time. 
+Questo valore cresce naturalmente: 
+* se vengono visualizzate delle finestre di Grafici. Ogni finestra aperta aumenta il tempo di aggiornamento;
+* se vengono azionati i motori con una velocità diversa da 1. Minore sarà la velocità, maggiore sarà il tempo di aggiornamento (vedi Azionamento dei Motori)
 
 ## Azionamento dei motori
 
+![motion](/Screenshots/Motion.JPG)
+
+La velocità è regolata con un sistema PWM. 
 Si noti che se si muove l'inseguitore verso Est, la posizione del sole si muoverà verso a Ovest rispetto il centro dei quattro qaudranti e viceversa. 
-Se si muove il frame verso Up, il sole andrà verso Down. 
+Se si muove il frame verso Up, il sole andrà verso Down e viceversa. 
 
 ## Logica di inseguimento
+
+![comandiInseguimento](/Screenshots/finding.png)
 
 ![zoneInseguimento](/Screenshots/inseguimento_zone.png)
 
@@ -124,6 +133,8 @@ Se si inserisce un canale già occupato il dato non viene aggiunto [inserire mes
 PlotSavedData -> non ancora implementato
 
 ## Grafico dei dati 
+
+![ShowGraph](/Screenshots/PlotWindow.JPG) 
 
 ## Calcolo delle efemeridi
 
